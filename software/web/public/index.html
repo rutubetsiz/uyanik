@@ -1,0 +1,1684 @@
+<!doctype html>
+<!--
+  Copyright (C) 2026 rutubetsiz
+  SPDX-License-Identifier: GPL-3.0-or-later
+-->
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#F1F1F3"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0E0F11"
+      media="(prefers-color-scheme: dark)"
+    />
+    <title>UYANIK</title>
+    <link rel="manifest" href="manifest.json" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      :root {
+        --bg: #f1f1f3;
+        --card: #ffffff;
+        --track: #e7e7eb;
+        --soft: #f3f3f6;
+        --ink: #16181c;
+        --dim: #8a9099;
+        --red: #ff3b30;
+        --red-soft: #ffebe9;
+        --amber: #ffb020;
+        --amber-soft: #fff3dc;
+        --green: #30c36b;
+        --line: #e3e3e8;
+        --btn: #1c1f24;
+        --btn-ink: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0e0f11;
+          --card: #17191c;
+          --track: #2a2e34;
+          --soft: #212429;
+          --ink: #f2f3f5;
+          --dim: #8b9199;
+          --red: #ff6b5e;
+          --red-soft: rgba(255, 107, 94, 0.15);
+          --amber: #ffbc42;
+          --amber-soft: rgba(255, 188, 66, 0.15);
+          --green: #3ad47c;
+          --line: #292d33;
+          --btn: #f2f3f5;
+          --btn-ink: #16181c;
+        }
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        min-height: 100dvh;
+        font:
+          400 16px/1.45 system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-tap-highlight-color: transparent;
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      :focus-visible {
+        outline: 2.5px solid var(--ink);
+        outline-offset: 3px;
+      }
+      svg {
+        display: block;
+        fill: currentColor;
+      }
+
+      .app {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 22px 18px calc(40px + env(safe-area-inset-bottom));
+      }
+      @media (min-width: 800px) {
+        .app {
+          padding: 38px 32px 56px;
+        }
+      }
+
+      /* HEADER */
+      .top {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.032em;
+        line-height: 1.1;
+      }
+      @media (min-width: 800px) {
+        h1 {
+          font-size: 33px;
+        }
+      }
+      .top .idn p {
+        color: var(--dim);
+        font-size: 14.5px;
+        margin-top: 5px;
+      }
+      .tools {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .live {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 13px 7px 11px;
+        font-size: 13.5px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .live i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+        flex: none;
+      }
+      .live.off i {
+        background: var(--dim);
+      }
+      .iconbtn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        background: var(--card);
+        border: 1px solid var(--line);
+        color: var(--dim);
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .iconbtn svg {
+        width: 17px;
+        height: 17px;
+      }
+      .iconbtn:hover {
+        color: var(--red);
+        border-color: var(--red);
+      }
+
+      .lang {
+        display: flex;
+        gap: 2px;
+        background: var(--track);
+        border-radius: 999px;
+        padding: 3px;
+        flex: none;
+      }
+      .lang button {
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--dim);
+        letter-spacing: 0.03em;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .lang button.on {
+        background: var(--card);
+        color: var(--ink);
+      }
+
+      h3 {
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: -0.022em;
+        margin: 26px 0 12px;
+      }
+      h3:first-child {
+        margin-top: 0;
+      }
+
+      .cols {
+        display: grid;
+        gap: 0;
+      }
+      .cols > div + div {
+        margin-top: 32px;
+      }
+      @media (min-width: 1000px) {
+        .cols {
+          grid-template-columns: 1.3fr 1fr;
+          gap: 26px;
+          align-items: start;
+        }
+        .cols > div + div {
+          margin-top: 0;
+        }
+        .cols > div:last-child h3 {
+          margin-top: 0;
+        }
+      }
+
+      /* DEVICE CARD */
+      .device {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 18px;
+        transition:
+          background 0.35s,
+          border-color 0.35s;
+      }
+      .device.on {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .device.down {
+        background: var(--card);
+      }
+      .drow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+      }
+      .dico {
+        color: var(--dim);
+        transition: color 0.3s;
+      }
+      .dico svg {
+        width: 30px;
+        height: 30px;
+      }
+      .device.on .dico {
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .device.down .dico {
+        color: var(--red);
+      }
+      .device h2 {
+        font-size: 23px;
+        font-weight: 700;
+        letter-spacing: -0.028em;
+      }
+      .device p {
+        font-size: 14.5px;
+        color: var(--dim);
+        margin-top: 5px;
+      }
+      .device.on h2 {
+        color: #fff;
+      }
+      .device.on p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* SWITCH */
+      .sw {
+        width: 60px;
+        height: 35px;
+        border-radius: 999px;
+        background: var(--track);
+        position: relative;
+        flex: none;
+        transition: background 0.3s;
+      }
+      .sw::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+        transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+      }
+      .device.on .sw {
+        background: rgba(255, 255, 255, 0.34);
+      }
+      .device.on .sw::after {
+        transform: translateX(25px);
+      }
+      .sw:disabled {
+        opacity: 0.55;
+      }
+
+      /* COMMANDS */
+      .cmds {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .cmd {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        text-align: left;
+        padding: 15px 16px;
+        transition: background 0.15s;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+      }
+      .cmd + .cmd {
+        border-top: 1px solid var(--line);
+      }
+      .cmd:active {
+        background: var(--soft);
+      }
+      .cmd:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .cmd > * {
+        position: relative;
+      }
+      .fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 0;
+        background: var(--red-soft);
+        pointer-events: none;
+      }
+      .cico {
+        flex: none;
+        color: var(--ink);
+        display: grid;
+        place-items: center;
+      }
+      .cico svg {
+        width: 22px;
+        height: 22px;
+      }
+      .ctxt {
+        flex: 1;
+        min-width: 0;
+      }
+      .ctxt b {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.018em;
+      }
+      .ctxt i {
+        display: block;
+        font-style: normal;
+        font-size: 13.5px;
+        color: var(--dim);
+        margin-top: 2px;
+      }
+      .cmd.hot .ctxt i {
+        color: var(--red);
+      }
+      .cgo {
+        flex: none;
+        color: var(--dim);
+        opacity: 0.5;
+      }
+      .cgo svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* CONNECTION STATS */
+      .stats {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 520px) and (max-width: 999px) {
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 12px 15px;
+      }
+      .stat > svg {
+        width: 20px;
+        height: 20px;
+        flex: none;
+        color: var(--dim);
+      }
+      .stat div {
+        min-width: 0;
+      }
+      .stat span {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--dim);
+      }
+      .stat b {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.012em;
+        margin-top: 1px;
+        font-variant-numeric: tabular-nums;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* NOTIFICATIONS */
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(22px + env(safe-area-inset-bottom));
+        transform: translate(-50%, 18px) scale(0.96);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--green);
+        color: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 12px 20px;
+        font-size: 14.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        max-width: calc(100vw - 32px);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.22s,
+          transform 0.28s cubic-bezier(0.34, 1.3, 0.64, 1);
+        z-index: 9;
+      }
+      @media (min-width: 900px) { .toast { bottom: 26px; } }
+
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+      .toast.err { background: var(--red); }
+
+      .pend {
+        margin-right: auto;
+        margin-left: 12px;
+        font-size: 13.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--amber);
+      }
+
+      .device.on .pend {
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      /* BANNER*/
+      .banner {
+        display: flex;
+        gap: 14px;
+        background: var(--amber-soft);
+        border-radius: 20px;
+        padding: 16px 18px;
+        margin-bottom: 20px;
+      }
+      .banner.info {
+        background: var(--soft);
+      }
+      .banner b {
+        display: block;
+        font-size: 15.5px;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        color: var(--amber);
+      }
+      .banner.info b {
+        color: var(--ink);
+      }
+      .banner p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink);
+        margin-top: 5px;
+        opacity: 0.82;
+      }
+
+      /* PANEL */
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 16px;
+      }
+
+      .field {
+        margin: 16px auto 0;
+        width: 100%;
+        max-width: 420px;
+      }
+      .field:first-child {
+        margin-top: 0;
+      }
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dim);
+        margin-bottom: 6px;
+      }
+      .field input {
+        width: 100%;
+        background: var(--soft);
+        border: 1.5px solid transparent;
+        border-radius: 13px;
+        padding: 12px 14px;
+        font: inherit;
+        font-size: 16px;
+        color: var(--ink);
+      }
+      .field input:focus {
+        border-color: var(--dim);
+        outline: none;
+        background: var(--card);
+      }
+      .field small {
+        display: block;
+        font-size: 12.5px;
+        color: var(--dim);
+        margin-top: 5px;
+        line-height: 1.4;
+      }
+
+      .btn {
+        display: block;
+        min-width: 170px;
+        background: var(--btn);
+        color: var(--btn-ink);
+        border-radius: 13px;
+        padding: 12px 22px;
+        font-size: 15.5px;
+        font-weight: 600;
+        margin: 16px auto 0;
+        transition: opacity 0.15s;
+      }
+      .btn:active {
+        opacity: 0.8;
+      }
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .btn.ghost {
+        background: var(--soft);
+        color: var(--ink);
+        margin-top: 8px;
+      }
+      .gate .btn {
+        width: 100%;
+      }
+
+      .note {
+        font-size: 13.5px;
+        color: var(--dim);
+        margin: 12px auto 0;
+        max-width: 420px;
+        line-height: 1.5;
+      }
+      .note.warn {
+        color: var(--red);
+      }
+      .note:empty {
+        margin-top: 0;
+      }
+
+      /* PASSWORD */
+      .pw {
+        position: relative;
+      }
+      .pw input {
+        padding-right: 50px;
+      }
+      .pw .eye {
+        position: absolute;
+        right: 5px;
+        top: 31px;
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        display: grid;
+        place-items: center;
+        color: var(--dim);
+      }
+      .pw .eye:hover {
+        background: var(--track);
+      }
+      .pw .eye svg {
+        width: 19px;
+        height: 19px;
+      }
+      .pw .eye.on {
+        color: var(--ink);
+      }
+
+      /* REMOTE PANEL */
+      .gate {
+        max-width: 440px;
+        margin: 0 auto;
+        padding: 7vh 18px 40px;
+        position: relative;
+      }
+      .gate > .lang {
+        position: absolute;
+        top: calc(7vh - 6px);
+        right: 18px;
+      }
+      .gate h1 {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 6px;
+      }
+      .gate > p {
+        font-size: 15px;
+        color: var(--dim);
+        line-height: 1.5;
+        margin-bottom: 22px;
+      }
+      .gate .panel {
+        padding: 20px;
+      }
+      .steps {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 20px;
+      }
+      .steps i {
+        flex: 1;
+        height: 3px;
+        border-radius: 2px;
+        background: var(--track);
+      }
+      .steps i.on {
+        background: var(--ink);
+      }
+
+      .who {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--dim);
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
+      .who b {
+        font-weight: 600;
+        color: var(--ink);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-desktop" viewBox="0 0 96 96">
+          <path
+            d="M90,0H6A5.9966,5.9966,0,0,0,0,6V66a5.9966,5.9966,0,0,0,6,6H42V84H30a6,6,0,0,0,0,12H66a6,6,0,0,0,0-12H54V72H90a5.9966,5.9966,0,0,0,6-6V6A5.9966,5.9966,0,0,0,90,0ZM84,60H12V12H84Z"
+          />
+        </symbol>
+        <symbol id="i-reload" viewBox="0 0 96 96">
+          <path
+            d="M94.2422,37.7578a5.9979,5.9979,0,0,0-8.4844,0l-2.61,2.61A36.0347,36.0347,0,0,0,48,12a35.55,35.55,0,0,0-21.6211,7.3594,5.9977,5.9977,0,0,0,7.2422,9.5625A23.6677,23.6677,0,0,1,48,24,23.957,23.957,0,0,1,70.6729,40.4766l-3.97-3.1641a5.9956,5.9956,0,1,0-7.4765,9.375l15.0351,12a5.99,5.99,0,0,0,7.98-.4453l12-12A5.9979,5.9979,0,0,0,94.2422,37.7578Z"
+          />
+          <path
+            d="M62.3789,67.0781A23.6675,23.6675,0,0,1,48,72,23.957,23.957,0,0,1,25.3271,55.5234l3.97,3.1641a5.9956,5.9956,0,1,0,7.4765-9.375l-15.0351-12a6.0071,6.0071,0,0,0-7.98.4453l-12,12a5.9994,5.9994,0,0,0,8.4844,8.4844l2.61-2.61A36.0347,36.0347,0,0,0,48,84a35.55,35.55,0,0,0,21.6211-7.3594,5.9977,5.9977,0,1,0-7.2422-9.5625Z"
+          />
+        </symbol>
+        <symbol id="i-server" viewBox="0 0 96 96">
+          <path
+            d="M0,23.8362v48c0,15.7617,24.1465,24,48,24s48-8.2383,48-24v-48C96-7.6873,0-7.6873,0,23.8362Zm84,24c0,4.23-13.67,12-36,12s-36-7.77-36-12V40.0645c9.2527,5.0778,22.5938,7.7717,36,7.7717s26.7473-2.6939,36-7.7717Zm-36-36c22.33,0,36,7.7695,36,12s-13.67,12-36,12-36-7.7695-36-12S25.67,11.8362,48,11.8362Zm0,72c-22.33,0-36-7.77-36-12V64.0645c9.2527,5.0778,22.5938,7.7717,36,7.7717s26.7473-2.6939,36-7.7717v7.7717C84,76.0667,70.33,83.8362,48,83.8362Z"
+          />
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 96 96">
+          <path
+            d="M48,0A48,48,0,1,0,96,48,48.0474,48.0474,0,0,0,48,0Zm.1384,83.9861c-.02,0-.0395.0058-.06.0058-1.6055-.5192-4.8238-5.6689-6.9676-15.238,2.2969.13,4.6.2461,6.8892.2461,2.2917,0,4.5989-.1157,6.8994-.2461C52.7761,78.3091,49.6135,83.4543,48.1384,83.9861ZM48,57c-3.0923,0-5.9539-.1333-8.6543-.3442C39.134,53.9553,39,51.0923,39,48s.1333-5.9539.3442-8.6543C42.0447,39.134,44.9077,39,48,39s5.9539.1333,8.6543.3442C56.866,42.0447,57,44.9077,57,48s-.1333,5.9539-.3442,8.6543C53.9553,56.866,51.0923,57,48,57ZM12.0139,48.1384c0-.02-.0058-.0395-.0058-.06.5192-1.6055,5.6689-4.8238,15.238-6.9676C27.1165,43.4077,27,45.7112,27,48c0,2.2917.1157,4.5989.2461,6.8994C17.6909,52.7761,12.5457,49.6135,12.0139,48.1384ZM47.8616,12.0139c.02,0,.0395-.0058.06-.0058,1.6055.5192,4.8238,5.6689,6.9676,15.238C52.5923,27.1165,50.2888,27,48,27c-2.2917,0-4.5989.1157-6.8994.2461C43.2239,17.6909,46.3865,12.5457,47.8616,12.0139ZM68.7539,41.1006c9.5552,2.1233,14.7,5.2859,15.2322,6.761,0,.02.0058.0395.0058.06-.5192,1.6055-5.6689,4.8238-15.238,6.9676.13-2.2969.2461-4.6.2461-6.8892C69,45.7083,68.8843,43.4011,68.7539,41.1006Zm11.2669-9.2095a74.6936,74.6936,0,0,0-12.6819-3.23,74.6936,74.6936,0,0,0-3.23-12.6819A36.0229,36.0229,0,0,1,80.0208,31.8911ZM31.89,15.9792a74.685,74.685,0,0,0-3.2293,12.6819A74.6729,74.6729,0,0,0,15.98,31.89,36.0205,36.0205,0,0,1,31.89,15.9792ZM15.98,64.11a74.6559,74.6559,0,0,0,12.6811,3.2293A74.6559,74.6559,0,0,0,31.89,80.02,36.0152,36.0152,0,0,1,15.98,64.11ZM64.11,80.02a74.6729,74.6729,0,0,0,3.2293-12.6811A74.685,74.685,0,0,0,80.0208,64.11,36.0205,36.0205,0,0,1,64.11,80.02Z"
+          />
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 96 96">
+          <path
+            d="M48,0A48,48,0,1,0,96,48,48.055,48.055,0,0,0,48,0Zm0,84A36,36,0,1,1,84,48,36.0393,36.0393,0,0,1,48,84Z"
+          />
+          <path
+            d="M66,42H54V30a6,6,0,0,0-12,0V48a5.9966,5.9966,0,0,0,6,6H66a6,6,0,0,0,0-12Z"
+          />
+        </symbol>
+        <symbol id="i-eye" viewBox="0 0 96 96">
+          <path
+            d="M48,18C22.5,18,3.4,44.2,2.6,45.3a4.5,4.5,0,0,0,0,5.4C3.4,51.8,22.5,78,48,78S92.6,51.8,93.4,50.7a4.5,4.5,0,0,0,0-5.4C92.6,44.2,73.5,18,48,18Zm0,51C29.8,69,14.2,51.7,10.6,48,14.2,44.3,29.8,27,48,27S81.8,44.3,85.4,48C81.8,51.7,66.2,69,48,69Z"
+          />
+          <path
+            d="M48,33A15,15,0,1,0,63,48,15,15,0,0,0,48,33Zm0,21a6,6,0,1,1,6-6A6,6,0,0,1,48,54Z"
+          />
+        </symbol>
+        <symbol id="i-eye-off" viewBox="0 0 96 96">
+          <path
+            d="M48,18C22.5,18,3.4,44.2,2.6,45.3a4.5,4.5,0,0,0,0,5.4C3.4,51.8,22.5,78,48,78S92.6,51.8,93.4,50.7a4.5,4.5,0,0,0,0-5.4C92.6,44.2,73.5,18,48,18Zm0,51C29.8,69,14.2,51.7,10.6,48,14.2,44.3,29.8,27,48,27S81.8,44.3,85.4,48C81.8,51.7,66.2,69,48,69Z"
+          />
+          <path
+            d="M48,33A15,15,0,1,0,63,48,15,15,0,0,0,48,33Zm0,21a6,6,0,1,1,6-6A6,6,0,0,1,48,54Z"
+          />
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="9"
+            stroke-linecap="round"
+          >
+            <path d="M17,79,79,17" />
+          </g>
+        </symbol>
+        <symbol id="i-power" viewBox="0 0 96 96">
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="12"
+            stroke-linecap="round"
+          >
+            <path d="M48,12V44" />
+            <path d="M27.4,29.5A32,32,0,1,0,68.6,29.5" />
+          </g>
+        </symbol>
+        <symbol id="i-chev" viewBox="0 0 96 96">
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="12"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M37,20,65,48,37,76" />
+          </g>
+        </symbol>
+        <symbol id="i-logout" viewBox="0 0 96 96">
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="12"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M56,18H74a6,6,0,0,1,6,6V72a6,6,0,0,1-6,6H56" />
+            <path d="M16,48H58" />
+            <path d="M42,32,58,48,42,64" />
+          </g>
+        </symbol>
+      </defs>
+    </svg>
+
+    <!-- SETUP -->
+    <div class="gate" id="v-setup" hidden>
+      <div class="lang">
+        <button data-lang="tr">TR</button><button data-lang="en">EN</button>
+      </div>
+      <h1>UYANIK</h1>
+      <p data-t="setup.lead"></p>
+
+      <div class="steps"><i class="on"></i><i></i></div>
+
+      <section class="panel">
+        <div class="field">
+          <label for="s-url" data-t="setup.url"></label>
+          <input
+            id="s-url"
+            autocomplete="off"
+            placeholder="https://…firebasedatabase.app"
+          />
+          <small data-t="setup.urlHint"></small>
+        </div>
+        <div class="field">
+          <label for="s-key" data-t="setup.key"></label>
+          <input id="s-key" autocomplete="off" placeholder="AIza…" />
+          <small data-t="setup.keyHint"></small>
+        </div>
+        <div class="field">
+          <label for="s-dev" data-t="setup.dev"></label>
+          <input
+            id="s-dev"
+            autocomplete="off"
+            placeholder="uyanik"
+            value="uyanik"
+          />
+          <small data-t="setup.devHint"></small>
+        </div>
+        <p class="note" id="s-err"></p>
+        <button class="btn" id="s-go" data-t="setup.go"></button>
+      </section>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="gate" id="v-login" hidden>
+      <div class="lang">
+        <button data-lang="tr">TR</button><button data-lang="en">EN</button>
+      </div>
+      <h1 data-t="login.title"></h1>
+      <p id="l-sub"></p>
+
+      <div class="steps"><i class="on"></i><i class="on"></i></div>
+
+      <section class="panel">
+        <div class="field">
+          <label for="l-mail" data-t="login.mail"></label>
+          <input id="l-mail" type="email" autocomplete="username" />
+        </div>
+        <div class="field pw">
+          <label for="l-pw" data-t="login.pw"></label>
+          <input id="l-pw" type="password" autocomplete="current-password" />
+          <button type="button" class="eye" data-eye="l-pw">
+            <svg><use href="#i-eye" /></svg>
+          </button>
+        </div>
+        <p class="note" id="l-err"></p>
+        <button class="btn" id="l-go" data-t="login.go"></button>
+        <button class="btn ghost" id="l-back" data-t="login.back"></button>
+      </section>
+    </div>
+
+    <!-- PANEL -->
+    <div class="app" id="v-main" hidden>
+      <header class="top">
+        <div class="idn">
+          <h1>UYANIK</h1>
+          <p id="host"></p>
+        </div>
+        <div class="tools">
+          <div class="live off" id="live">
+            <i></i><span id="livetxt"></span>
+          </div>
+          <button class="iconbtn" id="signout" data-t-aria="main.signout">
+            <svg><use href="#i-logout" /></svg>
+          </button>
+          <div class="lang">
+            <button data-lang="tr">TR</button><button data-lang="en">EN</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="banner info" id="wait" hidden>
+        <div>
+          <b id="waitt"></b>
+          <p id="waitp"></p>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div>
+          <section class="device" id="device">
+            <div class="drow">
+              <span class="dico"
+                ><svg><use href="#i-desktop" /></svg
+              ></span>
+              <span class="pend" id="pend" hidden
+                ><span id="pendtxt"></span
+              ></span>
+              <button
+                class="sw"
+                id="sw"
+                role="switch"
+                aria-checked="false"
+              ></button>
+            </div>
+            <h2 id="pcname"></h2>
+            <p id="sub"></p>
+          </section>
+
+          <h3 data-t="main.cmds"></h3>
+          <div class="cmds">
+            <button class="cmd" data-cmd="reset">
+              <span class="cico"
+                ><svg><use href="#i-reload" /></svg
+              ></span>
+              <span class="ctxt"
+                ><b data-t="cmd.reset"></b><i data-t="cmd.resetSub"></i
+              ></span>
+              <span class="cgo"
+                ><svg><use href="#i-chev" /></svg
+              ></span>
+            </button>
+            <button class="cmd hot" data-cmd="power_long" data-hold="1">
+              <span class="fill" id="holdbar"></span>
+              <span class="cico"
+                ><svg><use href="#i-power" /></svg
+              ></span>
+              <span class="ctxt"
+                ><b data-t="cmd.force"></b
+                ><i id="holdlbl" data-t="cmd.forceIdle"></i
+              ></span>
+              <span class="cgo"
+                ><svg><use href="#i-chev" /></svg
+              ></span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 data-t="main.conn"></h3>
+          <div class="stats">
+            <div class="stat">
+              <svg><use href="#i-globe" /></svg>
+              <div><span data-t="conn.wip"></span><b id="wip">-</b></div>
+            </div>
+            <div class="stat">
+              <svg><use href="#i-server" /></svg>
+              <div><span data-t="conn.lip"></span><b id="lip">-</b></div>
+            </div>
+            <div class="stat">
+              <svg><use href="#i-clock" /></svg>
+              <div><span data-t="conn.seen"></span><b id="seen">-</b></div>
+            </div>
+          </div>
+
+          <div class="who">
+            <span data-t="main.signedIn"></span><b id="whoami">-</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"><span id="tmsg"></span></div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        signOut,
+        onAuthStateChanged,
+        setPersistence,
+        browserLocalPersistence,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+      const $ = (s) => document.querySelector(s);
+      const CFG = "uyanik.cfg";
+
+      try {
+        if (localStorage.getItem("uyanik.wsfix") !== "1") {
+          localStorage.removeItem("firebase:previous_websocket_failure");
+          localStorage.setItem("uyanik.wsfix", "1");
+        }
+      } catch (e) {}
+
+      const STALE_MS = 95000;
+
+      const DEV_RE = /^[A-Za-z0-9_-]{1,32}$/;
+
+      function normUrl(u) {
+        let v = String(u || "").trim();
+        if (v && !/^https?:\/\//i.test(v)) v = "https://" + v;
+        return v.replace(/\/+$/, "");
+      }
+
+      /* LANGUAGE */
+      const LANG = {
+        tr: {
+          "setup.lead":
+            "Kendi Firebase projene bağlan. Bu bilgiler yalnızca bu tarayıcıda saklanır, hiçbir yere gönderilmez.",
+          "setup.url": "Realtime Database adresi",
+          "setup.urlHint":
+            "Firebase konsolunda Realtime Database sayfasının adres satırı.",
+          "setup.key": "Web API Key",
+          "setup.keyHint": "",
+          "setup.dev": "Cihaz adı",
+          "setup.devHint": "Cihazın Ayarlar sekmesinde yazan adla aynı olmalı.",
+          "setup.go": "Devam",
+          "err.urlEmpty": "Adres boş.",
+          "err.urlHttps": "https olmalı.",
+          "err.urlChars": "Adreste geçersiz karakter var.",
+          "err.urlNotFb": "Firebase adresi değil.",
+          "err.key": "API key geçersiz görünüyor.",
+          "err.dev": "Cihaz adı yalnızca harf, rakam, _ ve - içerebilir.",
+
+          "login.title": "Giriş",
+          "login.sub": "{0} için Firebase hesabınla gir.",
+          "login.mail": "E-posta",
+          "login.pw": "Parola",
+          "login.go": "Gir",
+          "login.back": "Proje bilgilerini değiştir",
+          "login.bad": "E-posta veya parola hatalı.",
+          "login.badMail": "E-posta biçimi hatalı.",
+          "login.tooMany": "Çok fazla deneme yaptın. Biraz bekle.",
+          "login.net": "Ağa ulaşılamadı.",
+          "login.other": "Giriş başarısız ({0})",
+
+          "main.pc": "Bilgisayar",
+          "main.on": "Açık",
+          "main.off": "Kapalı",
+          "main.noSignal": "cihazdan haber yok",
+          "main.noDb": "veritabanına bağlanılamıyor",
+          "main.connecting": "bağlanılıyor…",
+          "live.connecting": "Bağlanıyor",
+          "live.noDb": "Bağlantı yok",
+          "main.online": "Çevrimiçi",
+          "main.offline": "Çevrimdışı",
+          "main.cmds": "Komutlar",
+          "main.conn": "Bağlantı",
+          "main.signedIn": "Giriş:",
+          "main.signout": "Çıkış yap",
+          "main.signoutAsk":
+            "Çıkış yapılacak. Panele dönmek için Firebase e-posta ve parolanı yeniden girmen gerekecek. Devam mı?",
+
+          "cmd.reset": "Yeniden Başlat",
+          "cmd.resetSub": "",
+          "cmd.force": "Zorla Kapat",
+          "cmd.forceIdle": "Basılı tut.",
+          "cmd.holding": "{0} saniye bırakma",
+          "cmd.released": "Bırakıldı, komut gönderilmedi",
+
+          "conn.wip": "IP",
+          "conn.lip": "Lokal IP",
+          "conn.seen": "Son Görülme",
+
+          "wait.sent": "Komut yolda",
+          "wait.noDbT": "Veritabanına bağlanılamıyor",
+          "wait.noDbP":
+            "Bu, telefonunun internet bağlantısıyla ilgili, cihazın durumu hakkında şu an hiçbir şey bilmiyoruz. Wi-Fi ile mobil veri arasında geçiş yapmayı dene.",
+          "wait.deadT": "Cihazdan haber yok",
+          "wait.deadP":
+            "Son sinyal {0}. Elektrik ya da internet kesik olabilir.",
+
+          "toast.pending": "Önceki komut hâlâ yolda",
+          "toast.noDb": "Veritabanına bağlanılamıyor, komut gönderilmedi",
+          "toast.withdrawn": "Onay gelmedi, komut geri çekildi",
+          "toast.got": "Cihaz komutu aldı",
+          "toast.noGot": "Cihaz komutu almadı, geri çekildi",
+          "toast.denied":
+            "Yetki reddedildi, veritabanı kuralları hesabına izin vermiyor",
+          "toast.sendFail": "Komut gönderilemedi",
+          "toast.readDenied": "Yetki reddedildi, kuralları kontrol et",
+          "toast.readFail": "Veri okunamadı",
+
+          "ago.sec": "{0} sn önce",
+          "ago.min": "{0} dk önce",
+          "ago.hour": "{0} sa {1} dk önce",
+
+          "a.show": "Parolayı göster",
+          "a.hide": "Parolayı gizle",
+        },
+        en: {
+          "setup.lead":
+            "Connect to your own Firebase project. These details are kept in this browser only and are never sent anywhere.",
+          "setup.url": "Realtime Database URL",
+          "setup.urlHint":
+            "The address bar of the Realtime Database page in the Firebase console.",
+          "setup.key": "Web API key",
+          "setup.keyHint": "",
+          "setup.dev": "Device name",
+          "setup.devHint":
+            "Must match the name shown on the device's Settings tab.",
+          "setup.go": "Continue",
+          "err.urlEmpty": "The address is empty.",
+          "err.urlHttps": "Must be https.",
+          "err.urlChars": "Invalid character in the address.",
+          "err.urlNotFb": "Not a Firebase address.",
+          "err.key": "That API key does not look valid.",
+          "err.dev":
+            "The device name may contain only letters, digits, _ and -.",
+
+          "login.title": "Sign in",
+          "login.sub": "Sign in with your Firebase account for {0}.",
+          "login.mail": "E-mail",
+          "login.pw": "Password",
+          "login.go": "Sign in",
+          "login.back": "Change project details",
+          "login.bad": "Wrong e-mail or password.",
+          "login.badMail": "Malformed e-mail address.",
+          "login.tooMany": "Too many attempts. Wait a while.",
+          "login.net": "Could not reach the network.",
+          "login.other": "Sign-in failed ({0})",
+
+          "main.pc": "Computer",
+          "main.on": "On",
+          "main.off": "Off",
+          "main.noSignal": "no word from the device",
+          "main.noDb": "cannot reach the database",
+          "main.connecting": "connecting…",
+          "live.connecting": "Connecting",
+          "live.noDb": "No connection",
+          "main.online": "Online",
+          "main.offline": "Offline",
+          "main.cmds": "Commands",
+          "main.conn": "Connection",
+          "main.signedIn": "Signed in:",
+          "main.signout": "Sign out",
+          "main.signoutAsk":
+            "You will be signed out. To get back in you must enter your Firebase email and password again. Continue?",
+
+          "cmd.reset": "Restart",
+          "cmd.resetSub": "",
+          "cmd.force": "Force Off",
+          "cmd.forceIdle": "Hold",
+          "cmd.holding": "keep holding, {0}s",
+          "cmd.released": "Released, command not sent",
+
+          "conn.wip": "Public IP",
+          "conn.lip": "Local IP",
+          "conn.seen": "Last Seen",
+
+          "wait.sent": "Command on its way",
+          "wait.noDbT": "Cannot reach the database",
+          "wait.noDbP":
+            "This is about your phone's internet connection, right now we know nothing about the device. Try switching between Wi-Fi and mobile data.",
+          "wait.deadT": "No word from the device",
+          "wait.deadP": "Last signal {0}. Power or internet may be down.",
+
+          "toast.pending": "The previous command is still on its way",
+          "toast.noDb": "Cannot reach the database, command not sent",
+          "toast.withdrawn": "No acknowledgement, the command was withdrawn",
+          "toast.got": "The device picked the command up",
+          "toast.noGot": "The device did not pick the command up, withdrawn",
+          "toast.denied":
+            "Permission denied, the database rules do not allow your account",
+          "toast.sendFail": "Could not send the command",
+          "toast.readDenied": "Permission denied, check the rules",
+          "toast.readFail": "Could not read the data",
+
+          "ago.sec": "{0}s ago",
+          "ago.min": "{0} min ago",
+          "ago.hour": "{0} h {1} min ago",
+
+          "a.show": "Show password",
+          "a.hide": "Hide password",
+        },
+      };
+
+      let lang = localStorage.getItem("uyanik.lang");
+      if (lang !== "tr" && lang !== "en")
+        lang = (navigator.language || "tr").toLowerCase().startsWith("tr")
+          ? "tr"
+          : "en";
+
+      function t(k, a) {
+        let s = LANG[lang][k];
+        if (s == null) s = LANG.tr[k];
+        if (s == null) return k;
+        if (a)
+          a.forEach((v, i) => {
+            s = s.split("{" + i + "}").join(v);
+          });
+        return s;
+      }
+
+      function applyLang() {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-t]").forEach((el) => {
+          el.textContent = t(el.dataset.t);
+        });
+        document
+          .querySelectorAll("[data-t-aria]")
+          .forEach((el) => el.setAttribute("aria-label", t(el.dataset.tAria)));
+        document
+          .querySelectorAll("[data-lang]")
+          .forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
+        document.querySelectorAll("[data-eye]").forEach((b) => {
+          const hid =
+            document.getElementById(b.dataset.eye).type === "password";
+          b.setAttribute("aria-label", t(hid ? "a.show" : "a.hide"));
+        });
+        $("#sw").setAttribute("aria-label", t("main.pc"));
+        if (dev) $("#l-sub").textContent = t("login.sub", [dev]);
+
+        renderSay($("#s-err"));
+        renderSay($("#l-err"));
+        paint();
+      }
+
+      document.querySelectorAll("[data-lang]").forEach((b) => {
+        b.addEventListener("click", () => {
+          if (b.dataset.lang === lang) return;
+          lang = b.dataset.lang;
+          try {
+            localStorage.setItem("uyanik.lang", lang);
+          } catch {}
+          applyLang();
+        });
+      });
+
+      let app,
+        auth,
+        db,
+        cfg,
+        dev,
+        offset = 0,
+        unsub = [],
+        last = {},
+        pending = null;
+      
+      let dbUp = null;
+      let dbGrace = null;
+
+      const GRACE_MS = 12000;
+
+      function setDbState(connected) {
+        if (connected) {
+          clearTimeout(dbGrace);
+          dbGrace = null;
+          dbUp = true;
+          paint();
+          return;
+        }
+        
+        if (dbUp !== null) {
+          dbUp = null;
+          paint();
+        }
+        if (!dbGrace)
+          dbGrace = setTimeout(() => {
+            dbGrace = null;
+            dbUp = false;
+            paint();
+          }, GRACE_MS);
+      }
+
+      /* LOOKS */
+      function show(id) {
+        ["v-setup", "v-login", "v-main"].forEach(
+          (v) => ($("#" + v).hidden = v !== id),
+        );
+      }
+
+      function say(el, key, args, err) {
+        el.dataset.msg = key || "";
+        el.dataset.msgArgs = args ? JSON.stringify(args) : "";
+        el.dataset.msgErr = err ? "1" : "";
+        renderSay(el);
+      }
+      function renderSay(el) {
+        const k = el.dataset.msg;
+        el.textContent = k
+          ? t(k, el.dataset.msgArgs ? JSON.parse(el.dataset.msgArgs) : null)
+          : "";
+        el.className = "note" + (el.dataset.msgErr ? " warn" : "");
+      }
+
+      let tT = null;
+      function toast(key, args, err) {
+        $("#tmsg").textContent = t(key, args);
+        const el = $("#toast");
+        el.className = "toast show" + (err ? " err" : "");
+        clearTimeout(tT);
+        tT = setTimeout(() => {
+          el.className = "toast" + (err ? " err" : "");
+        }, 3200);
+      }
+
+      document.querySelectorAll("[data-eye]").forEach((b) => {
+        b.addEventListener("click", () => {
+          const inp = document.getElementById(b.dataset.eye),
+            hid = inp.type === "password";
+          inp.type = hid ? "text" : "password";
+          b.classList.toggle("on", hid);
+          b.setAttribute("aria-label", t(hid ? "a.hide" : "a.show"));
+          b.querySelector("use").setAttribute(
+            "href",
+            hid ? "#i-eye-off" : "#i-eye",
+          );
+          inp.focus();
+        });
+      });
+
+      /* SETUP */
+      
+      function checkUrl(v) {
+        let h = v.trim();
+        if (!h) return "err.urlEmpty";
+        if (h.startsWith("http://")) return "err.urlHttps";
+        h = h.replace(/^https:\/\//, "").replace(/\/+$/, "");
+        if (/[@/:?#\\\s]/.test(h)) return "err.urlChars";
+        const ok = [".firebasedatabase.app", ".firebaseio.com"].some(
+          (s) =>
+            h.toLowerCase().endsWith(s) &&
+            h.length > s.length &&
+            h[h.length - s.length - 1] !== ".",
+        );
+        return ok ? null : "err.urlNotFb";
+      }
+
+      $("#s-go").addEventListener("click", () => {
+        const url = $("#s-url").value.trim();
+        const bad =
+          checkUrl(url) ||
+          (!/^AIza[\w-]{20,}$/.test($("#s-key").value.trim())
+            ? "err.key"
+            : null) ||
+          (!DEV_RE.test($("#s-dev").value.trim()) ? "err.dev" : null);
+        if (bad) return say($("#s-err"), bad, null, 1);
+
+        localStorage.setItem(
+          CFG,
+          JSON.stringify({
+            dbUrl: normUrl(url),
+            apiKey: $("#s-key").value.trim(),
+            device: $("#s-dev").value.trim(),
+          }),
+        );
+        say($("#s-err"), "");
+        boot();
+      });
+
+      $("#l-back").addEventListener("click", () => {
+        localStorage.removeItem(CFG);
+        boot();
+      });
+
+      /* LOGIN */
+      $("#l-go").addEventListener("click", async () => {
+        const btn = $("#l-go");
+        btn.disabled = true;
+        say($("#l-err"), "");
+        try {
+          await setPersistence(auth, browserLocalPersistence);
+          await signInWithEmailAndPassword(
+            auth,
+            $("#l-mail").value.trim(),
+            $("#l-pw").value,
+          );
+          $("#l-pw").value = "";
+        } catch (e) {
+          
+          const k = {
+            "auth/invalid-credential": "login.bad",
+            "auth/invalid-email": "login.badMail",
+            "auth/too-many-requests": "login.tooMany",
+            "auth/network-request-failed": "login.net",
+          }[e.code];
+          say($("#l-err"), k || "login.other", k ? null : [e.code], 1);
+        }
+        btn.disabled = false;
+      });
+
+      $("#signout").addEventListener("click", () => {
+        if (!confirm(t("main.signoutAsk"))) return;
+        signOut(auth);
+      });
+
+      /* PANEL*/
+      function fmtAgo(ms) {
+        if (ms < 0) ms = 0;
+        const s = Math.round(ms / 1000);
+        if (s < 60) return t("ago.sec", [s]);
+        const m = Math.round(s / 60);
+        if (m < 60) return t("ago.min", [m]);
+        const h = Math.floor(m / 60);
+        return t("ago.hour", [h, m % 60]);
+      }
+
+      function paint() {
+        const on = last.state === "on";
+        const age = last.lastSeen
+          ? Date.now() + offset - last.lastSeen
+          : Infinity;
+      
+        const alive = age < STALE_MS;
+
+        const el = $("#device");
+        el.classList.toggle("on", alive && on);
+        el.classList.toggle("down", !alive);
+        $("#sw").setAttribute("aria-checked", String(alive && on));
+        $("#pcname").textContent = last.pcName || t("main.pc");
+        $("#sub").textContent = alive
+          ? t(on ? "main.on" : "main.off")
+          : dbUp === false
+            ? t("main.noDb")
+            : !last.lastSeen
+              ? t("main.connecting")
+              : t("main.noSignal");
+
+        $("#live").className = "live" + (alive ? "" : " off");
+        $("#livetxt").textContent = alive
+          ? t("main.online")
+          : dbUp === false
+            ? t("live.noDb")
+            : !last.lastSeen
+              ? t("live.connecting")
+              : t("main.offline");
+        $("#host").textContent = dev || "";
+        $("#wip").textContent = last.ip || "-";
+        $("#lip").textContent = last.localIp || "-";
+        $("#seen").textContent = last.lastSeen ? fmtAgo(age) : "-";
+
+        const pd = $("#pend");
+        pd.hidden = !pending;
+        if (pending) $("#pendtxt").textContent = t("wait.sent");
+
+        const w = $("#wait");
+        if (!alive && dbUp === false) {
+          w.hidden = false;
+          w.className = "banner";
+          $("#waitt").textContent = t("wait.noDbT");
+          $("#waitp").textContent = t("wait.noDbP");
+        } else if (!alive && last.lastSeen) {
+          w.hidden = false;
+          w.className = "banner";
+          $("#waitt").textContent = t("wait.deadT");
+          $("#waitp").textContent = t("wait.deadP", [fmtAgo(age)]);
+        } else {
+          w.hidden = true;
+        }
+      }
+
+      async function send(cmd) {
+        if (pending) return toast("toast.pending", null, 1);
+
+        try {
+          await Promise.race([
+            set(ref(db, "/" + dev + "/cmd"), cmd),
+            new Promise((_, rej) =>
+              setTimeout(() => rej(new Error("ack-timeout")), 9000),
+            ),
+          ]);
+          pending = cmd;
+          paint();
+          setTimeout(() => {
+            if (pending !== cmd) return;
+            pending = null;
+            paint();
+            withdraw(cmd);
+            toast("toast.noGot", null, 1);
+          }, 20000);
+        } catch (e) {
+          if (e && e.message === "ack-timeout") {
+            withdraw(cmd);
+            toast("toast.withdrawn", null, 1);
+          } else {
+            toast(
+              e && e.code === "PERMISSION_DENIED"
+                ? "toast.denied"
+                : "toast.sendFail",
+              null,
+              1,
+            );
+          }
+        }
+      }
+
+      function withdraw(cmd) {
+        if (last.cmd && last.cmd !== cmd) return;
+        set(ref(db, "/" + dev + "/cmd"), "none").catch(() => {});
+      }
+
+      $("#sw").addEventListener("click", () => send("power_short"));
+
+      document.querySelectorAll(".cmd").forEach((el) => {
+        if (!el.dataset.hold) {
+          el.addEventListener("click", () => send(el.dataset.cmd));
+          return;
+        }
+        
+        const lbl = $("#holdlbl"),
+          bar = $("#holdbar");
+        let timer = null,
+          tick = null;
+
+        const reset = () => {
+          clearInterval(tick);
+          tick = null;
+          lbl.textContent = t("cmd.forceIdle");
+          bar.style.transition = "width .2s";
+          bar.style.width = "0";
+        };
+        el.addEventListener("pointerdown", (e) => {
+          e.preventDefault();
+          let left = 6;
+          lbl.textContent = t("cmd.holding", [left]);
+          bar.style.transition = "none";
+          bar.style.width = "0";
+          void bar.offsetWidth;
+          bar.style.transition = "width 6000ms linear";
+          bar.style.width = "100%";
+          tick = setInterval(() => {
+            if (--left > 0) lbl.textContent = t("cmd.holding", [left]);
+          }, 1000);
+          timer = setTimeout(() => {
+            timer = null;
+            reset();
+            send("power_long");
+          }, 6000);
+        });
+        ["pointerup", "pointerleave", "pointercancel"].forEach((n) =>
+          el.addEventListener(n, () => {
+            if (!timer) return;
+            clearTimeout(timer);
+            timer = null;
+            reset();
+            toast("cmd.released", null, 1);
+          }),
+        );
+        el.addEventListener("contextmenu", (e) => e.preventDefault());
+      });
+
+      /* DATA FLOW */
+      function watch() {
+        unsub.forEach((f) => f());
+        unsub = [];
+        const base = "/" + dev + "/";
+
+        unsub.push(
+          onValue(ref(db, ".info/serverTimeOffset"), (s) => {
+            offset = s.val() || 0;
+            paint();
+          }),
+        );
+        unsub.push(
+          onValue(ref(db, ".info/connected"), (s) =>
+            setDbState(s.val() === true),
+          ),
+        );
+
+        setDbState(false);
+
+        ["state", "ip", "localIp", "lastSeen", "pcName"].forEach((k) => {
+          unsub.push(
+            onValue(
+              ref(db, base + k),
+              (s) => {
+                last[k] = s.val();
+                paint();
+              },
+              (e) =>
+                toast(
+                  e.code === "PERMISSION_DENIED"
+                    ? "toast.readDenied"
+                    : "toast.readFail",
+                  null,
+                  1,
+                ),
+            ),
+          );
+        });
+
+        unsub.push(
+          onValue(ref(db, base + "cmd"), (s) => {
+            const v = s.val();
+            last.cmd = v;
+            if (pending && (!v || v === "none")) {
+              pending = null;
+              paint();
+              toast("toast.got");
+            }
+          }),
+        );
+      }
+
+      /* BOOT */
+      function boot() {
+        const raw = localStorage.getItem(CFG);
+        if (!raw) {
+          show("v-setup");
+          return;
+        }
+        try {
+          cfg = JSON.parse(raw);
+        } catch {
+          localStorage.removeItem(CFG);
+          show("v-setup");
+          return;
+        }
+        if (!cfg || !DEV_RE.test(cfg.device || "")) {
+          localStorage.removeItem(CFG);
+          show("v-setup");
+          return;
+        }
+        const fixed = normUrl(cfg.dbUrl);
+        if (fixed !== cfg.dbUrl) {
+          cfg.dbUrl = fixed;
+          try {
+            localStorage.setItem(CFG, JSON.stringify(cfg));
+          } catch (e) {}
+        }
+        dev = cfg.device;
+        $("#l-sub").textContent = t("login.sub", [dev]);
+
+        if (!app) {
+          app = initializeApp({ apiKey: cfg.apiKey, databaseURL: cfg.dbUrl });
+          auth = getAuth(app);
+          db = getDatabase(app);
+          onAuthStateChanged(auth, (u) => {
+            if (u) {
+              $("#whoami").textContent = u.email;
+              show("v-main");
+              watch();
+              paint();
+            } else {
+              unsub.forEach((f) => f());
+              unsub = [];
+              last = {};
+              pending = null;
+              clearTimeout(dbGrace);
+              dbGrace = null;
+              dbUp = null;
+              show("v-login");
+            }
+          });
+        } else {
+          show(auth.currentUser ? "v-main" : "v-login");
+        }
+      }
+      setInterval(() => {
+        if (!$("#v-main").hidden) paint();
+      }, 1000);
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && !$("#v-main").hidden) paint();
+      });
+
+      applyLang();
+      boot();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+.firebaserc
+.firebase/
+firebase-debug.log
+
+*-backups/
+fp-info-cache
+*.kicad_prl
+*.lck
+
+Thumbs.db
+desktop.ini
