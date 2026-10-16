@@ -2,6 +2,10 @@
 
 [English](README.md)
 
+<p align="center">
+  <img src="docs/hero.png" alt="UYANIK PCB" width="900">
+</p>
+
 Uzaktaki bir bilgisayarı açıp kapatmak için yapılmış bir cihaz. İnternet erişiminiz varsa, dünyanın neresinde olursanız olun fark etmez.
 
 ## Niye böyle bir şey yaptım?
