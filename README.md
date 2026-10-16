@@ -1,9 +1,11 @@
 # UYANIK
 
 [Türkçe](README.tr.md)
+<p align="center">
+  <img src="docs/hero.png" alt="UYANIK PCB" width="900">
+</p>
 
 A device for turning a remote computer on and off. As long as you have internet access, it doesn’t matter where in the world you are.
-
 ## Why did I build this?
 
 It started as a summer project. I had turned a spare computer into a server, but I didn’t want to leave it running all the time. University was about to start, and I needed a way to turn it on and off remotely. Shutting down a remote machine is easy, turning it on is not. Wake-on-LAN isn’t enough, and if you’re behind CGNAT on top of that... The answer to all of it was a device that stays on at home, so I built one. Wherever I am, UYANIK lets me open a web panel and turn my server on and off as if I were at home pressing the button on the case.
